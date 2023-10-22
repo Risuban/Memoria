@@ -4,6 +4,9 @@
 /.pnp
 .pnp.js
 
+**/node_modules/
+
+
 # Testing
 /video-capture/coverage
 
