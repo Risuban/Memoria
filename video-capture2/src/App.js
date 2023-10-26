@@ -3,18 +3,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CameraCapture from './components/CameraCapture';
 import TermsOfService from './components/ToS';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import UserContext from './components/UserContext';
+import { useState } from 'react';
 
 function App() {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        age: '',
+        gender: '',
+        underlyingCondition: '',
+        estimatedWeight: '',
+        height: '',
+        email: '',
+        timeStamp: ''
+        // ... any other fields you need
+    });
+
     return (
+        <UserContext.Provider value={{formData, setFormData}}>
         <Router>
             <div>
-                {/* Navigation */}
-                <nav>
-                    <ul>
-                        <li><Link to="/">Terms of Service</Link></li>
-                        <li><Link to="/camera-capture">Camera Capture</Link></li>
-                    </ul>
-                </nav>
 
                 {/* Routes */}
                 <Routes>
@@ -23,6 +32,7 @@ function App() {
                 </Routes>
             </div>
         </Router>
+        </UserContext.Provider>
     );
 }
 

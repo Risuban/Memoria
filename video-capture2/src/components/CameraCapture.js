@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import uploadVideo from '../services/uploadVideo';
+import { useUser } from './UserContext';
 
 
 function CameraCapture({ viewName}) {
@@ -7,6 +8,7 @@ function CameraCapture({ viewName}) {
     const mediaRecorderRef = useRef(null);
     const recordedChunks = useRef([]);
     const [recording, setRecording] = useState(false);
+    const { formData } = useUser();
 
     useEffect(() => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -47,9 +49,14 @@ function CameraCapture({ viewName}) {
     
     const handleStopRecording = () => {
         const blob = new Blob(recordedChunks.current, { type: 'video/webm' });
+        
     
+        const userName = `${formData.firstName}${formData.lastName}`; // o como estés generando el userName
+        const action = viewName; // si viewName es lo que estás utilizando para indicar la acción
+        const timestamp = Date.now(); // timestamp actual
+        
         // Llamada a la función de utilidad para subir el video
-        uploadVideo(blob, `${viewName}.webm`)
+        uploadVideo(blob, `${viewName}.webm`, formData)
           .then(response => {
             console.log('Video subido con éxito', response);
             
