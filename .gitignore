@@ -1,6 +1,7 @@
 # Dependencias
 /video-capture2/node_modules
 /server/node_modules
+/server/datos.csv
 /.pnp
 .pnp.js
 

@@ -6,6 +6,8 @@ const fs = require('fs');
 const cors = require('cors');
 const app = express();
 const port = 3001;
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -60,6 +62,39 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
         res.send('Video guardado con éxito.');
     });
 });
+
+
+const csvWriter = createCsvWriter({
+    path: 'datos.csv',
+    header: [
+        { id: 'firstName', title: 'First Name' },
+        { id: 'lastName', title: 'Last Name' },
+        { id: 'age', title: 'Age' },
+        { id: 'gender', title: 'Gender' },
+        { id: 'underlyingCondition', title: 'Underlying Condition' },
+        { id: 'estimatedWeight', title: 'Estimated Weight' },
+        { id: 'height', title: 'Height' },
+        // Asegúrate de agregar aquí todos los campos adicionales de tu formulario
+    ],
+    append: true // Esto asegura que los nuevos registros se añadan en vez de sobrescribir el archivo
+});
+
+app.post('/submit-form', (req, res) => {
+    const formData = req.body;
+
+    // Aquí, puedes realizar validaciones adicionales si es necesario
+
+    csvWriter.writeRecords([formData])
+        .then(() => {
+            console.log('Data written to CSV successfully');
+            res.status(200).send('Form data submitted successfully');
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).send('Failed to write data to CSV');
+        });
+});
+
 
 
 app.post('/create-user-directory', (req, res) => {
