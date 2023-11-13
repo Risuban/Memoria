@@ -38,7 +38,15 @@ function TermsOfService() {
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
             // Redirige al usuario a la página de grabación
-            navigate('/camera-capture');
+            navigate('/recording-menu'); // Redirigir al menú de grabación
+        })
+        .catch(error => {
+            console.error("Error al comunicarse con el servidor:", error);
+        });
+        axios.post('http://localhost:3001/submit-form', formData)
+        .then(response => {
+            console.log("Respuesta del servidor:", response.data);
+            // Redirige al usuario a la página de grabación o muestra un mensaje de éxito
         })
         .catch(error => {
             console.error("Error al comunicarse con el servidor:", error);
