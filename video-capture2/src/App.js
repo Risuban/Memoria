@@ -36,6 +36,8 @@ function App() {
                         <Route path="/capture/lip-corner-movements" element={<CameraCapture viewName="LipCornerMovements" />} />
                         <Route path="/capture/blinking" element={<CameraCapture viewName="Blinking" />} />
                         <Route path="/capture/head-position" element={<CameraCapture viewName="HeadPosition" />} />
+                        {/* ejemplo de como agregar una nueva vista */}
+                        {/* <Route path="/capture/look-aroubd" element={<CameraCapture viewName="LookAround" />} /> */}
                         {/* Agrega más rutas según sea necesario */}
                     </Routes>
                 </div>
