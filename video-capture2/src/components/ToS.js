@@ -31,7 +31,7 @@ function TermsOfService() {
 
         console.log("Enviando datos al servidor...");
         
-        axios.post('http://localhost:3001/create-user-directory', {
+        axios.post(`${process.env.REACT_APP_API_URL}/create-user-directory`, {
             ...formData, 
             userName: formData.firstName + "-" + apellido
         })
@@ -43,7 +43,7 @@ function TermsOfService() {
         .catch(error => {
             console.error("Error al comunicarse con el servidor:", error);
         });
-        axios.post('http://localhost:3001/submit-form', formData)
+        axios.post(`${process.env.REACT_APP_API_URL}/submit-form`, formData)
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
             // Redirige al usuario a la página de grabación o muestra un mensaje de éxito

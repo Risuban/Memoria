@@ -18,7 +18,7 @@ const uploadVideo = (videoBlob, filename, formData) => {
     
       // Aquí pasamos formData como userInfo
 
-  return axios.post('http://localhost:3001/upload', uploadData, {
+  return axios.post(`${process.env.REACT_APP_API_URL}/upload`, uploadData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }

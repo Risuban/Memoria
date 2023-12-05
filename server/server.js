@@ -1,12 +1,19 @@
 // server.js
+require('dotenv').config();
+
 const express = require('express');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+
+
+
+
 
 
 app.use(bodyParser.json());
@@ -147,5 +154,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
+    console.log(`Servidor escuchando en el puerto ${port}`);
+  });
