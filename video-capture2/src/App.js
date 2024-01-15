@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import UserContext from './components/UserContext';
 import { useState } from 'react';
 import RecordingMenu from './components/menu';
+import ThankYou from './components/ThankYou';
 
 function App() {
     const [formData, setFormData] = useState({
@@ -39,6 +40,8 @@ function App() {
                         {/* ejemplo de como agregar una nueva vista */}
                         {/* <Route path="/capture/look-aroubd" element={<CameraCapture viewName="LookAround" />} /> */}
                         {/* Agrega más rutas según sea necesario */}
+                        <Route path="/final" element={<ThankYou />} />
+
                     </Routes>
                 </div>
             </Router>

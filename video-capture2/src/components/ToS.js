@@ -62,11 +62,11 @@ function TermsOfService() {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="firstName" className="form-label">Nombre:</label>
-                        <input type="text" id="firstName" name="firstName" className="form-control" value={formData.firstName} onChange={handleInputChange} placeholder="Nombre"/>
+                        <input type="text" id="firstName" name="firstName" className="form-control" value={formData.firstName} onChange={handleInputChange} placeholder="Aquí su nombre"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="lastName" className="form-label">Apellido:</label>
-                        <input type="text" id="lastName" name="lastName" className="form-control" value={formData.lastName} onChange={handleInputChange} placeholder="Apellido"/>
+                        <input type="text" id="lastName" name="lastName" className="form-control" value={formData.lastName} onChange={handleInputChange} placeholder="Aquí su apellido"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="age" className="form-label">Edad:</label>
