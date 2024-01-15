@@ -20,6 +20,7 @@ const RecordingMenu = () => {
                     </div>
                 </div>
             </div>
+            <Link to="/final" className="btn btn-primary mt-3">Finalizar</Link>
         </div>
     );
 };
