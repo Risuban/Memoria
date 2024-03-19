@@ -6,6 +6,7 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const cors = require('cors');
+const crypto = require('crypto');
 const app = express();
 const port = process.env.PORT || 3001;
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
@@ -18,6 +19,12 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+
+
+function generateHash(name) {
+    return crypto.createHash('sha256').update(name).digest('hex');
+  }
 
 // Configuración de Multer para determinar cómo se almacenan los archivos.
 const storage = multer.diskStorage({
@@ -51,6 +58,7 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
 
     const apellido = formData.lastName.split(" ").join("-");
     const userName = formData.firstName + "-" + apellido;
+    const hashForDir = generateHash(userName, timestamp);
     const action = path.basename(file.originalname, '.mp4'); 
     const timestamp = formData.timeStamp;
 
@@ -59,7 +67,7 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
         return res.status(400).send('Faltan datos necesarios para guardar el archivo.');
     }
 
-    const finalPath = path.join(__dirname, 'videos', `${userName}-${timestamp}`, `${action}.mp4`);
+    const finalPath = path.join(__dirname, 'videos', `${hashForDir}`, `${action}.mp4`);
 
     fs.rename(file.path, finalPath, (err) => {
         if (err) {
@@ -74,23 +82,28 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
 const csvWriter = createCsvWriter({
     path: 'datos.csv',
     header: [
-        { id: 'firstName', title: 'First Name' },
-        { id: 'lastName', title: 'Last Name' },
-        { id: 'age', title: 'Age' },
-        { id: 'gender', title: 'Gender' },
-        { id: 'underlyingCondition', title: 'Underlying Condition' },
-        { id: 'estimatedWeight', title: 'Estimated Weight' },
-        { id: 'height', title: 'Height' },
-        // Asegúrate de agregar aquí todos los campos adicionales de tu formulario
-    ],
-    append: true // Esto asegura que los nuevos registros se añadan en vez de sobrescribir el archivo
+        {id: 'firstName', title: 'First Name'},
+        {id: 'lastName', title: 'Last Name'},
+        {id: 'age', title: 'Age'},
+        {id: 'gender', title: 'Gender'},
+        {id: 'underlyingCondition', title: 'Underlying Condition'},
+        {id: 'estimatedWeight', title: 'Estimated Weight'},
+        {id: 'height', title: 'Height'},
+        {id: 'timeStamp', title: 'Timestamp'} 
+    ]
 });
-
 app.post('/submit-form', (req, res) => {
     const formData = req.body;
 
-    // Aquí, puedes realizar validaciones adicionales si es necesario
+    if (formData.timeStamp) {
+        // Asegúrate de que timeStamp es un número antes de convertirlo
+        const date = new Date(parseInt(formData.timeStamp));
+        // Formato ejemplo: "DD/MM/YYYY HH:mm:ss"
+        const humanReadableDate = date.toLocaleString(); // Puedes ajustar el formato según necesites
+        formData.timeStamp = humanReadableDate;
+    }
 
+    console.log('datos formulario:', req.body);
     csvWriter.writeRecords([formData])
         .then(() => {
             console.log('Data written to CSV successfully');
@@ -115,7 +128,8 @@ app.post('/create-user-directory', (req, res) => {
         return res.status(400).send('Nombre de usuario o timestamp no proporcionado.');
     }
 
-    const directory = path.join(__dirname, 'videos', `${userName}-${timestamp}`);
+    const hashForDir = generateHash(userName, timestamp);  
+    const directory = path.join(__dirname, 'videos', `${hashForDir}`);
 
     console.log("Nombre del directorio:", directory);
 
@@ -129,8 +143,8 @@ app.post('/create-user-directory', (req, res) => {
     });
 
     const originalPdfPath = path.join(__dirname, 'assets', 'consentimiento_informado.pdf');
-    const newPdfName = `archivo_informado_${userName}_${timestamp}.pdf`;
-    const newPdfPath = path.join(__dirname, 'videos', `${userName}-${timestamp}`, newPdfName);
+    const newPdfName = `archivo_informado_${hashForDir}.pdf`;
+    const newPdfPath = path.join(directory, newPdfName);
 
     fs.copyFile(originalPdfPath, newPdfPath, (err) => {
         if (err) {
@@ -138,7 +152,6 @@ app.post('/create-user-directory', (req, res) => {
             // Manejo de errores
             return;
         }
-        // Puedes continuar con tu lógica aquí o enviar una respuesta
     });
 
 });

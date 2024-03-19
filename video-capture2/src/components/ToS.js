@@ -28,12 +28,17 @@ function TermsOfService() {
             alert("Por favor, lee y acepta el consentimiento informado.");
             return;
         }
-
-        console.log("Enviando datos al servidor...");
+    
+        // Actualiza el formData con el timestamp actual antes de enviarlo
+        const updatedTimestamp = Date.now().toString(); // Convierte el timestamp a string
+        const updatedFormData = { ...formData, timeStamp: updatedTimestamp };
+    
+        console.log("Enviando datos al servidor con timestamp...");
         
+        // Usa updatedFormData que ahora incluye el timestamp como string
         axios.post(`${process.env.REACT_APP_API_URL}/create-user-directory`, {
-            ...formData, 
-            userName: formData.firstName + "-" + apellido
+            ...updatedFormData, 
+            userName: `${formData.firstName}-${apellido}`
         })
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
@@ -43,7 +48,7 @@ function TermsOfService() {
         .catch(error => {
             console.error("Error al comunicarse con el servidor:", error);
         });
-        axios.post(`${process.env.REACT_APP_API_URL}/submit-form`, formData)
+        axios.post(`${process.env.REACT_APP_API_URL}/submit-form`, updatedFormData)
         .then(response => {
             console.log("Respuesta del servidor:", response.data);
             // Redirige al usuario a la página de grabación o muestra un mensaje de éxito
@@ -51,7 +56,6 @@ function TermsOfService() {
         .catch(error => {
             console.error("Error al comunicarse con el servidor:", error);
         });
-        
     };
 
     return (
@@ -62,11 +66,11 @@ function TermsOfService() {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="firstName" className="form-label">Nombre:</label>
-                        <input type="text" id="firstName" name="firstName" className="form-control" value={formData.firstName} onChange={handleInputChange} placeholder="Aquí su nombre"/>
+                        <input type="text" id="firstName" name="firstName" className="form-control" value={formData.firstName} onChange={handleInputChange} placeholder="Aquí sus nombres"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="lastName" className="form-label">Apellido:</label>
-                        <input type="text" id="lastName" name="lastName" className="form-control" value={formData.lastName} onChange={handleInputChange} placeholder="Aquí su apellido"/>
+                        <input type="text" id="lastName" name="lastName" className="form-control" value={formData.lastName} onChange={handleInputChange} placeholder="Aquí sus apellidos"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="age" className="form-label">Edad:</label>
