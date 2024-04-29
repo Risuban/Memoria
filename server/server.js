@@ -89,9 +89,12 @@ const csvWriter = createCsvWriter({
         {id: 'underlyingCondition', title: 'Underlying Condition'},
         {id: 'estimatedWeight', title: 'Estimated Weight'},
         {id: 'height', title: 'Height'},
-        {id: 'timeStamp', title: 'Timestamp'} 
+        {id: 'timeStamp', title: 'Timestamp'},
+        {id: 'directoryHash', title: 'Directory Hash'} 
     ]
 });
+
+
 app.post('/submit-form', (req, res) => {
     const formData = req.body;
 
@@ -102,6 +105,10 @@ app.post('/submit-form', (req, res) => {
         const humanReadableDate = date.toLocaleString(); // Puedes ajustar el formato según necesites
         formData.timeStamp = humanReadableDate;
     }
+
+    const userName = formData.firstName + "-" + formData.lastName;  // Asegúrate de que estos son los campos correctos
+    const hashForDir = generateHash(userName, formData.timeStamp);
+    formData.directoryHash = hashForDir;
 
     console.log('datos formulario:', req.body);
     csvWriter.writeRecords([formData])
