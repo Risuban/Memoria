@@ -65,10 +65,21 @@ function CameraCapture({ viewName}) {
     function getExampleVideoUrl(viewName) {
         switch(viewName) {
             case 'MoveUpDown':
-                return '/path/to/move-up-down-example.mp4'; // Cambia esto por la URL real
+                return '/videos/move-up-down.mp4'; 
             case 'MoveSides':
-                return '/path/to/move-sides-example.mp4'; // Cambia esto por la URL real
-            // ... casos adicionales para otros viewNames
+                return '/videos/move-sides.mp4'; 
+            case 'RaiseEyebrows':
+                return '/videos/raise-eyebrows.mp4';  
+            case 'OpenCloseMouth':
+                return '/videos/open-close-mouth.mp4';  
+            case 'LipCornerMovements':
+                return '/videos/lip-corner-movements.mp4';  
+            case 'Blinking':
+                return '/videos/blinking.mp4';  
+            case 'HeadPosition':
+                return '/videos/head-position.mp4';  
+            case 'LookAround':
+                return '/videos/look-around.mp4';   
             default:
                 return ''; // URL por defecto o dejar vacío
         }
@@ -117,7 +128,7 @@ function CameraCapture({ viewName}) {
                     {/* Video de ejemplo */}
                     <div className="example-video">
                         <h6>Video de Ejemplo</h6>
-                        <video width="320" height="240" controls>
+                        <video width="320" height="240" controls muted disableRemotePlayback controlsList="nodownload noaudio">
                             <source src={exampleVideoUrl} type="video/mp4" />
                             Tu navegador no soporta videos.
                         </video>

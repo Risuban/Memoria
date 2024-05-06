@@ -11,12 +11,14 @@ const RecordingMenu = () => {
                 <div className="card-body">
                     <h5 className="card-title">Selecciona una acción para grabar</h5>
                     <div className="list-group">
-                        <Link to="/capture/move-up-down" className="list-group-item list-group-item-action">Movimiento de Levantar Cejas</Link>
+                    <Link to="/capture/move-up-down" className="list-group-item list-group-item-action">Movimiento Arriba/Abajo</Link>
+                        <Link to="/capture/move-sides" className="list-group-item list-group-item-action">Movimiento Lateral</Link>
+                        <Link to="/capture/raise-eyebrows" className="list-group-item list-group-item-action">Levantar Cejas</Link>
                         <Link to="/capture/open-close-mouth" className="list-group-item list-group-item-action">Abrir/Cerrar Boca</Link>
                         <Link to="/capture/lip-corner-movements" className="list-group-item list-group-item-action">Movimientos de Comisura Labial</Link>
-                        <Link to="/capture/blinking" className="list-group-item list-group-item-action">Abrir y Cerrar Ojos (Pestañeo Prolongado)</Link>
-                        <Link to="/capture/head-position" className="list-group-item list-group-item-action">Posición de la Cabeza (Perfil)</Link>
-                        {/* ... otros enlaces según sea necesario */}
+                        <Link to="/capture/blinking" className="list-group-item list-group-item-action">Pestañeo</Link>
+                        <Link to="/capture/head-position" className="list-group-item list-group-item-action">Posición de la Cabeza</Link>
+                        {/* Añadir otros enlaces según sea necesario */}
                     </div>
                 </div>
             </div>
