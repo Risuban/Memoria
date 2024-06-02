@@ -7,6 +7,7 @@ import UserContext from './components/UserContext';
 import { useState } from 'react';
 import RecordingMenu from './components/menu';
 import ThankYou from './components/ThankYou';
+import SearchView from './components/SearchView';
 
 function App() {
     const [formData, setFormData] = useState({
@@ -37,11 +38,11 @@ function App() {
                         <Route path="/capture/lip-corner-movements" element={<CameraCapture viewName="LipCornerMovements" />} />
                         <Route path="/capture/blinking" element={<CameraCapture viewName="Blinking" />} />
                         <Route path="/capture/head-position" element={<CameraCapture viewName="HeadPosition" />} />
+                        <Route path="/search-consent" element={<SearchView />} />
                         {/* ejemplo de como agregar una nueva vista */}
                         {/* <Route path="/capture/look-aroubd" element={<CameraCapture viewName="LookAround" />} /> */}
                         {/* Agrega más rutas según sea necesario */}
                         <Route path="/final" element={<ThankYou />} />
-
                     </Routes>
                 </div>
             </Router>

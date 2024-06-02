@@ -58,9 +58,9 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
 
     const apellido = formData.lastName.split(" ").join("-");
     const userName = formData.firstName + "-" + apellido;
+    const timestamp = formData.timeStamp;
     const hashForDir = generateHash(userName, timestamp);
     const action = path.basename(file.originalname, '.mp4'); 
-    const timestamp = formData.timeStamp;
 
     // Validación básica
     if (!userName || !action || !timestamp) {
@@ -163,6 +163,30 @@ app.post('/create-user-directory', (req, res) => {
 
 });
 
+const csv = require('csv-parser');
+
+app.get('/search/:name', (req, res) => {
+    const results = [];
+    fs.createReadStream(path.join(__dirname, 'datos.csv'))
+        .pipe(csv())
+        .on('data', (data) => {
+            if (data['First Name'].toLowerCase().includes(req.params.name.toLowerCase()) || data['Last Name'].toLowerCase().includes(req.params.name.toLowerCase())) {
+                results.push({
+                    firstName: data['First Name'],
+                    lastName: data['Last Name'],
+                    timestamp: data['Timestamp'],
+                    directoryHash: data['Directory_Hash']
+                });
+            }
+        })
+        .on('end', () => {
+            if (results.length > 0) {
+                res.json(results);
+            } else {
+                res.status(404).send('No entries found');
+            }
+        });
+});
 
 app.use((error, req, res, next) => {
     console.error(error.stack);
