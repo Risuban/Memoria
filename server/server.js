@@ -61,9 +61,9 @@ app.post('/upload', upload.single('video'), (req, res, next) => {
 
     const apellido = formData.lastName.split(" ").join("-");
     const userName = formData.firstName + "-" + apellido;
+    const timestamp = formData.timeStamp;
     const hashForDir = generateHash(userName, timestamp);
     const action = path.basename(file.originalname, '.mp4'); 
-    const timestamp = formData.timeStamp;
 
     // Validación básica
     if (!userName || !action || !timestamp) {
