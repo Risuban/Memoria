@@ -18,8 +18,11 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 
 app.use(bodyParser.json());
-app.use(cors());
-
+app.use(cors({
+    origin: '*', // Permitir todos los orígenes (puede ser restringido en producción)
+    methods: ['GET', 'POST'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
 
 
 function generateHash(name) {
