@@ -31,13 +31,13 @@ function App() {
                     <Routes>
                         <Route path="/" element={<TermsOfService />} />
                         <Route path="/recording-menu" element={<RecordingMenu />} />
-                        <Route path="/capture/move-up-down" element={<CameraCapture viewName="MoveUpDown" />} />
-                        <Route path="/capture/move-sides" element={<CameraCapture viewName="MoveSides" />} />
-                        <Route path="/capture/raise-eyebrows" element={<CameraCapture viewName="RaiseEyebrows" />} />
-                        <Route path="/capture/open-close-mouth" element={<CameraCapture viewName="OpenCloseMouth" />} />
-                        <Route path="/capture/lip-corner-movements" element={<CameraCapture viewName="LipCornerMovements" />} />
-                        <Route path="/capture/blinking" element={<CameraCapture viewName="Blinking" />} />
-                        <Route path="/capture/head-position" element={<CameraCapture viewName="HeadPosition" />} />
+                        <Route path="/capture/move-up-down" element={<CameraCapture viewName="MovimientoVertical" />} />
+                        <Route path="/capture/move-sides" element={<CameraCapture viewName="MovimientoLateral" />} />
+                        <Route path="/capture/raise-eyebrows" element={<CameraCapture viewName="LevantarCejas" />} />
+                        <Route path="/capture/open-close-mouth" element={<CameraCapture viewName="AbrirYCerrarBoca" />} />
+                        <Route path="/capture/lip-corner-movements" element={<CameraCapture viewName="ComisuraLabial" />} />
+                        <Route path="/capture/blinking" element={<CameraCapture viewName="Pestañeo" />} />
+                        <Route path="/capture/head-position" element={<CameraCapture viewName="PosiciónCabeza" />} />
                         <Route path="/search-consent" element={<SearchView />} />
                         {/* ejemplo de como agregar una nueva vista */}
                         {/* <Route path="/capture/look-aroubd" element={<CameraCapture viewName="LookAround" />} /> */}

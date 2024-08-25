@@ -18,11 +18,24 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 
 app.use(bodyParser.json());
+// Configurar CORS para permitir todos los orígenes (para desarrollo, ajustar para producción)
 app.use(cors({
-    origin: '*', // Permitir todos los orígenes (puede ser restringido en producción)
-    methods: ['GET', 'POST'], // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+    origin: '*', // Reemplaza con tu dominio de producción para mayor seguridad
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Middleware para manejar solicitudes preflight
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    if (req.method === "OPTIONS") {
+        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+        return res.status(200).json({});
+    }
+    next();
+});
+
 
 
 function generateHash(name) {

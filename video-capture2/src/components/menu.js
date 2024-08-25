@@ -9,7 +9,10 @@ const RecordingMenu = () => {
         <div className="container mt-5">
             <div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">Selecciona una acción para grabar</h5>
+                <h4 className="card-title">Selecciona una acción para grabar</h4>
+                <br></br>
+                    <p className="card-title">Al seleccionar una de las acciones serás llevado a una página en donde se tomarán los videos. Una vez dentro puedes ver el video de ejemplo para saber que hacer, luego podrás grabar el video. Durante la grabación del video no podrás ver la cámara pero si después. Para iniciar y detener la granación debes presioanr el botón correspondiente. Una vez terminada la grabación podrás ver el video recién tomado, si no te gusta podrás tomar otro, y si estás conforme puedes volver al menú para el siguiente gesto. Una vez que todos los gestos sean grabados, puedes presionar el botón de finalizar.</p>
+                    <br></br>
                     <div className="list-group">
                     <Link to="/capture/move-up-down" className="list-group-item list-group-item-action">Movimiento Arriba/Abajo</Link>
                         <Link to="/capture/move-sides" className="list-group-item list-group-item-action">Movimiento Lateral</Link>
