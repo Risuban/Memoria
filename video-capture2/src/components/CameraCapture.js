@@ -76,19 +76,19 @@ function CameraCapture({ viewName }) {
 
     function getExampleVideoUrl(viewName) {
         switch (viewName) {
-            case 'MoveUpDown':
+            case 'MovimientoVertical':
                 return '/videos/move-up-down.mp4';
-            case 'MoveSides':
+            case 'MovimientoLateral':
                 return '/videos/move-sides.mp4';
-            case 'RaiseEyebrows':
+            case 'LevantarCejas':
                 return '/videos/raise-eyebrows.mp4';
-            case 'OpenCloseMouth':
+            case 'AbrirYCerrarBoca':
                 return '/videos/open-close-mouth.mp4';
-            case 'LipCornerMovements':
+            case 'ComisuraLabial':
                 return '/videos/lip-corner-movements.mp4';
-            case 'Blinking':
+            case 'Pestañeo':
                 return '/videos/blinking.mp4';
-            case 'HeadPosition':
+            case 'PosiciónCabeza':
                 return '/videos/head-position.mp4';
             case 'LookAround':
                 return '/videos/look-around.mp4';
